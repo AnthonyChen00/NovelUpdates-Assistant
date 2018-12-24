@@ -21,6 +21,6 @@ python3 NU_Scraper.py
 
 ## Goals:
 * adding a method of launching the latest chapter on preferred web browser to the latest chapter or maybe the next chapter to about to reading
-* scraping the chapter text and ignoring the ads *(skeptical since ad revenue assist funding the translators for more content)*
+* scraping the chapter text and ignoring the ads *(skeptical since ad revenue helps the translators)*
 * creating and updating a user file within the local machine with data rather than pulling data from website at each launch of script
 * porting to raspberry pi to running continuously and notify when new chapters are posted
