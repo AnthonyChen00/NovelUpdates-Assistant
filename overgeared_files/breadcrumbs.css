@@ -1,0 +1,88 @@
+#Breadcrumb_Top {
+    font-size: 14px;
+}
+#Breadcrumb_Top, #bcaBreadcrumbBottom, #bcaBreadcrumbTop {
+    padding: 0px 5px 0px 10px;
+    margin: 10px 0 20px 0;
+}
+#Breadcrumb_Top {
+    font-size: 13px;
+}
+#Breadcrumb_Top dl, #bcaBreadcrumbTop dl {
+    margin: 0;
+}
+#Breadcrumb_Top dd, #bcaBreadcrumbBottom dd, #bcaBreadcrumbTop dd {
+    display: inline;
+}
+#Breadcrumb_Top dd {
+    color: #3c4a65;
+}
+.breadcrumb_nu 
+{
+	width:100%;
+	margin:-15px auto; 
+	background:#f4f5f7; 
+	border: 1px solid #e4e8eb; 
+	margin-bottom: -5px;
+	border-radius: 4px;
+	margin-bottom: 20px;
+}
+.mypage.bc
+{
+	border-bottom:none;
+	font-size:18px;
+}
+.mypage.bc.top
+{
+	margin-top: -15px;
+	margin-bottom: 18px
+}
+.item.icon.tools {
+    vertical-align: top;
+    text-align: center;
+    padding-top: 18px;
+}
+.caption.tools {
+    display: block;
+    font-size: 13px;
+    text-decoration: underline;
+}
+div.item.icon.tools img {
+    border: 1px solid #e4e8eb;
+    padding: 5px;
+    border-radius: 0px !important;
+}
+
+.sf_box
+{
+	border: 1px solid #e4e8eb;
+    border-radius: 4px;
+	padding: 15px;
+}
+.ricon.sf.bc
+{
+	margin-top: -38px;
+}
+.rktext.sf.bc
+{
+	top: -10px;
+	margin-bottom: -10px;
+}
+.rktext.sf.tag
+{
+	width: 100%;
+    top: 0px;
+	margin-top: -10px;
+}
+
+.column-left{ float: left; width: 33%; }
+.column-right{ float: right; width: 33%; }
+.column-center{ display: inline-block; width: 33%; }
+
+@media only screen and (max-width: 500px) {
+	.caption.tools {
+    display: block;
+    font-size: 12px;
+    text-decoration: underline;
+}
+}

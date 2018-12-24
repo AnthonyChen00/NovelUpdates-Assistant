@@ -1,0 +1,15 @@
+@-moz-document url-prefix() 
+{ 
+	.fa.fa-comments, .fa.fa-lock, .fa.fa-caret-down, .fa.fa-envelope-o, .fa.fa-bell, .fa.fa-search, .fa.fa-times, .fa.fa-filter, .fa.fa-bars, .fa.fa-reply
+	{
+		transform:rotate(0.001deg);
+	}
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) 
+{
+	.fa.fa-comments, .fa.fa-lock, .fa.fa-caret-down, .fa.fa-envelope-o, .fa.fa-bell, .fa.fa-search, .fa.fa-times, .fa.fa-filter, .fa.fa-bars, .fa.fa-reply
+	{
+		transform:rotate(0.001deg);
+	}
+}
