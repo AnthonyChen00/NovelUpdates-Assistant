@@ -52,45 +52,18 @@ def html_parse(html):
         reading_list.append(temp)
     return(reading_list)
 
-def newChapters(reading_list, userPrint):
-    numOfCh = 0
+def newChapters(reading_list):
+    updates = []
     for novel in reading_list:
         if novel.new_update():
-            if userPrint:
-                print(" -  " + novel.title)
-            else:
-                numOfCh += 1
-    if userPrint:
-        return 0
-    return(numOfCh)
-
-def promptTitles(updates):
-    userInput = "n"
-    if updates > 1:
-        print("There are " + str(updates) + " chapters released!")
-        userInput = input("Show which novel titles? (y/n)")
-    elif updates == 1:
-        print("There is a new chapter released!")
-        userInput = input("Show the novel title? (y/n)")
-    while (userInput != 'n' and userInput != 'y'):
-        print("Error: Invalid Input")
-        if updates > 1:
-            userInput = input("Show which novel titles? (y/n)")
-        elif updates == 1:
-            userInput = input("Show the novel title? (y/n)")
-    if userInput == "y":
-        if updates > 1:
-            print("The updates are for: ...")
-        elif updates == 1:
-            print("The update is for: ... ")
-        return True
-    else:
-        return False
+            updates.append(novel.title)
+    print("There are " + str(len(updates)) + " new updates...")
+    for i in range (len(updates)):
+        print(" " + str(i) + " - " + updates[i])
+    return 0
 
 if __name__ == '__main__':
     username, password = login()
     html_string = scrapper(username,password)
     readingList = html_parse(html_string)
-    updates = newChapters(readingList, userPrint=False)
-    userPrint = promptTitles(updates)
-    updates = newChapters(readingList, userPrint)
+    updates = newChapters(readingList)
