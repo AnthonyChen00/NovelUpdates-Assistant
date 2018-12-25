@@ -4,13 +4,8 @@ This project is to create an assistant to navigate through the popular web novel
 
 ## Setting up:
 To ensure that all the necessary Python libraries for the main script are installed
-*Skip the setup if you are using the virtual environment within this repo*
 ```bash
 pip install -r requirements.txt
-```
-Or launch the virtual environment
-```bash
-source venv/bin/activate
 ```
 
 ## Running code:
@@ -18,7 +13,7 @@ The current main program function is to determine whether or not there are new c
 ```bash
 $ python3 NU_Scraper.py
 Do you want to use save file (y/n): y
-Enter your NovelUpdate username: 
+Enter your NovelUpdate username:
 Enter your NovelUpdate password:
 WIP: will add functions to read based of files
 	  ===Login Sucess===
