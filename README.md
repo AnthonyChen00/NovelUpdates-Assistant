@@ -14,17 +14,20 @@ source venv/bin/activate
 ```
 
 ## Running code:
-The current main program function is to determine whether or not there are new chapters posted for the user's reading list. User login credentials are required for the program to access the reading list. Currently the login information is not stored anywhere within the program, but rather asked in the beginning of the script
+The current main program function is to determine whether or not there are new chapters posted for the user's reading list. User login credentials are required for the program to access the reading list. The program will prompt an option of saving user credentials on a file on the local machine at the launch of script.
 ```bash
 $ python3 NU_Scraper.py
-Enter your NovelUpdates Username:
-Enter your NovelUpdates Password:
-Login Sucessful
-Parsing Reading List
-New chapters have been posted for...
--    Against the Gods
--    Heavenly Jewel Change
--    Overgeared
+Do you want to use save file (y/n): y
+Enter your NovelUpdate username: 
+Enter your NovelUpdate password:
+WIP: will add functions to read based of files
+	  ===Login Sucess===
+	 Parsing Reading List
+ ====================================
+There are 3 new updates...
+ 0 - Against the Gods
+ 1 - Heavenly Jewel Change
+ 2 - Overgeared
 ```
 
 ## Goals:

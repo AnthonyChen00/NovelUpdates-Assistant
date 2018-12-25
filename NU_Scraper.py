@@ -3,6 +3,7 @@ import getpass
 import sys
 from bs4 import BeautifulSoup
 from novel import Novel
+from settings import Settings
 
 def login():
     username = input("Enter your NovelUpdates Username: ")
@@ -63,7 +64,26 @@ def newChapters(reading_list):
     return 0
 
 if __name__ == '__main__':
-    username, password = login()
-    html_string = scrapper(username,password)
-    readingList = html_parse(html_string)
-    updates = newChapters(readingList)
+    while(1):
+        config = Settings()
+        if config.prompt:
+            if config.offload:
+                print("WIP: will add functions to read based of files")
+                html_string = scrapper(config.username,config.password)
+                readingList = html_parse(html_string)
+                updates = newChapters(readingList)
+                sys.exit()
+                sys.exit()
+            else:
+                username, password = login()
+                html_string = scrapper(username,password)
+                readingList = html_parse(html_string)
+                updates = newChapters(readingList)
+                sys.exit()
+        else:
+            username, password = config.initialization()
+            print("WIP: will add functions to read based of files")
+            html_string = scrapper(username,password)
+            readingList = html_parse(html_string)
+            updates = newChapters(readingList)
+            sys.exit()
