@@ -4,6 +4,7 @@ import sys
 from bs4 import BeautifulSoup
 from novel import Novel
 from settings import Settings
+import os
 
 def login():
     username = input("Enter your NovelUpdates Username: ")
@@ -12,6 +13,7 @@ def login():
 
 def scrapper(username, password):
     # logs onto website and pulls in the data from reading list onto a file
+    print("\tLogging in to NovelUpdates")
     s = requests.session()
     response = s.get('https://www.novelupdates.com/login/', timeout = 5)
     if response.status_code == 200:
@@ -33,7 +35,7 @@ def scrapper(username, password):
         print("Failure to access login page")
         sys.exit()
 
-def html_parse(html):
+def html_parse(html, fileHandle):
     reading_list = []
     soup = BeautifulSoup(html,'html.parser')
     print("\t Parsing Reading List")
@@ -44,14 +46,40 @@ def html_parse(html):
     if (len(chapters)%2) != 0:
         print("Error: Incorrect number of chapters")
         sys.exit()
-    for i in range(len(title_names)):
-        title = title_names[i].attrs["data-title"]
-        current_chapter = chapters[i + counter].get_text()
-        latest_chapter = chapters[i+ counter + 1].get_text()
-        counter += 1
-        temp = Novel(title,latest_chapter, current_chapter)
-        reading_list.append(temp)
-    return(reading_list)
+    if fileHandle:
+        for i in range(len(title_names)):
+            title = title_names[i].attrs["data-title"]
+            current_chapter = chapters[i + counter].get_text()
+            latest_chapter = chapters[i+ counter + 1].get_text()
+            counter += 1
+            temp = Novel(title,latest_chapter, current_chapter)
+            reading_list.append(temp)
+        return(reading_list)
+    else:
+        saveFile = open("readingList.txt","w")
+        counter = 0
+        for i in range(len(title_names)):
+            saveFile.write(title_names[i].attrs["data-title"] + ",")
+            saveFile.write(chapters[i + counter].get_text() + ",")
+            saveFile.write(chapters[i+ counter + 1].get_text() + "\n")
+            counter += 1
+        print("The save file,'readingList.txt' has been created...")
+            # temp[2][0:len(temp[2])-1]
+
+
+def fileReader():
+    if os.path.isfile("readingList.txt") == False:
+        print("Error: Save file, 'readingList.txt' is missing")
+        sys.exit()
+    readingList = []
+    saveFile = open("readingList.txt","r")
+    line = saveFile.readline()
+    while(len(line) != 0):
+        data = line.split(",")
+        newNovel = Novel(data[0], data[1], data[2][0:len(data[2])-1])
+        readingList.append(newNovel)
+        line = saveFile.readline()
+    return readingList
 
 def newChapters(reading_list):
     updates = []
@@ -63,27 +91,31 @@ def newChapters(reading_list):
         print(" " + str(i) + " - " + updates[i])
     return 0
 
+def printAll(reading_list):
+    print("\n\tCurrent Reading List:")
+    for novel in reading_list:
+        novel.printNovel()
+
 if __name__ == '__main__':
     while(1):
         config = Settings()
         if config.prompt:
             if config.offload:
                 print("WIP: will add functions to read based of files")
-                html_string = scrapper(config.username,config.password)
-                readingList = html_parse(html_string)
+                readingList = fileReader()
+                # checking the website for new chapters
                 updates = newChapters(readingList)
-                sys.exit()
                 sys.exit()
             else:
                 username, password = login()
                 html_string = scrapper(username,password)
-                readingList = html_parse(html_string)
+                readingList = html_parse(html_string, fileHandle=True)
                 updates = newChapters(readingList)
                 sys.exit()
         else:
             username, password = config.initialization()
-            print("WIP: will add functions to read based of files")
             html_string = scrapper(username,password)
-            readingList = html_parse(html_string)
+            html_parse(html_string, fileHandle=False)
+            readingList = fileReader()
             updates = newChapters(readingList)
             sys.exit()

@@ -31,6 +31,9 @@ class Settings():
             configFile.write("password = " + userInput+ "\n")
             self.password = userInput
             configFile.close()
+            if os.path.isfile("readingList.txt") == False:
+                readingFile = open("readingList.txt","x")
+                readingFile.close()
             return self.username, self.password
         else:
             return None, None

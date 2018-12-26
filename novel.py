@@ -12,3 +12,6 @@ class Novel:
         if self.latest_chapter != self.current_chapter:
             return True
         return False
+
+    def printNovel(self):
+        print(self.title, self.latest_chapter, self.current_chapter)
