@@ -9,7 +9,7 @@ pip install -r requirements.txt
 ```
 
 ## Running code:
-The current main program function is to determine whether or not there are new chapters posted for the user's reading list. User login credentials are required for the program to access the reading list. The program will prompt an option of saving user credentials on a file on the local machine at the launch of script.
+The current main program function is to determine whether or not there are new chapters posted for the user's reading list. User login credentials are required for the program to access the reading list. At the initial launch program will prompt a few features that the user may want to use such as, saving credentials locally rather than entering every time or having the program enter a state where it periodically follows a set schedule to see if there is a new update rather than running the program every time.
 ```bash
 $ python3 NU_Scraper.py
 Do you want to use save file (y/n): y
@@ -24,9 +24,14 @@ There are 3 new updates...
  1 - Heavenly Jewel Change
  2 - Overgeared
 ```
+## Settings:
+At the initial launch, the script will prompt several questions regarding using features like saving credentials on a local file or having the program enter a state of scheduled checks for new updates. The options for these features are saved within a file ".env" within the current directory of the program.
+### Scheduled Checks
+ The scheduled updates uses two additional values, one for how long the script waits until checking the website and one for which hours the program checks. These two values can be modified within "settings.py". The current configuration is that the program will wait an hour before checking the time, and if the current hour is 8am, 12pm, or 4pm, the program will check if there are new updates. Simply closing the program or ctrl+c to end the schedule checks
 
 ## Goals:
 * adding a method of launching the latest chapter on preferred web browser to the latest chapter or maybe the next chapter to about to reading
 * scraping the chapter text and ignoring the ads *(skeptical since ad revenue helps the translators)*
-* creating and updating a user file within the local machine with data rather than pulling data from website at each launch of script
+* ~~creating and updating a user file within the local machine with data rather than pulling data from website at each launch of script~~
 * porting to raspberry pi to running continuously and notify when new chapters are posted
+* ~~scheduled logins to check if new chapters have been posted~~

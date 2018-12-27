@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from novel import Novel
 from settings import Settings
 import os
-
+import time
 def login():
     username = input("Enter your NovelUpdates Username: ")
     password = getpass.getpass("Enter your NovelUpdates Password: ")
@@ -36,6 +36,7 @@ def scrapper(username, password):
         sys.exit()
 
 def html_parse(html, fileHandle):
+    """fileHandle is a work in progress feature of creating a reading list offline"""
     reading_list = []
     soup = BeautifulSoup(html,'html.parser')
     print("\t Parsing Reading List")
@@ -101,11 +102,27 @@ if __name__ == '__main__':
         config = Settings()
         if config.prompt:
             if config.offload:
-                print("WIP: will add functions to read based of files")
-                readingList = fileReader()
-                # checking the website for new chapters
-                updates = newChapters(readingList)
-                sys.exit()
+                username = config.username
+                password = config.password
+                if config.scheduled:
+                    while(1):
+                        try:
+                            print("Begining to Scheduled Action")
+                            time.sleep(config.pause) #pauses for an hour
+                            currentHour = time.localtime(time.time()).tm_hour
+                            if str(currentHour) in config.times:
+                                html_string = scrapper(username,password)
+                                readingList = html_parse(html_string, fileHandle=True)
+                                updates = newChapters(readingList)
+                                print('\n')
+                        except KeyboardInterrupt:
+                            print("\nEnding program")
+                            sys.exit()
+                else:
+                    html_string = scrapper(username,password)
+                    readingList = html_parse(html_string, fileHandle=True)
+                    updates = newChapters(readingList)
+                    sys.exit()
             else:
                 username, password = login()
                 html_string = scrapper(username,password)
@@ -115,7 +132,22 @@ if __name__ == '__main__':
         else:
             username, password = config.initialization()
             html_string = scrapper(username,password)
-            html_parse(html_string, fileHandle=False)
-            readingList = fileReader()
+            readingList = html_parse(html_string, fileHandle=True)
+            # readingList = fileReader()
             updates = newChapters(readingList)
-            sys.exit()
+            if config.scheduled:
+                print("Begining to Scheduled Action")
+                while(1):
+                    try:
+                        time.sleep(3600) #pauses for an hour
+                        currentTime = time.localtime(time.time())
+                        currentHour = currentTime.tm_hour
+                        if str(currentHour) in config.times: #will change to add options of changing the settings
+                            html_string = scrapper(username,password)
+                            readingList = html_parse(html_string, fileHandle=True)
+                            updates = newChapters(readingList)
+                    except KeyboardInterrupt:
+                        print("\nEnding program")
+                        sys.exit()
+            else:
+                sys.exit()
